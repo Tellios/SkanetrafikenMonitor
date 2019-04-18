@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "inlineSourceMap": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "lib": ["es2018"],
+    "pretty": true,
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}
