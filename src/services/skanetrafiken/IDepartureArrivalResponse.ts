@@ -7,23 +7,27 @@ export interface IDepartureArrivalResult {
   code: number;
   /** Error message, undefined if response code is 0 */
   message?: string;
-  lines: ILine[];
+  lines: ILines;
 }
 
-export interface ILine {
+export interface ILines {
+  line: ILineInfo[];
+}
+
+export interface ILineInfo {
   name: string;
   no: string;
   journeyDateTime: string;
   isTimingPoint: string;
   stopPoint: string;
-  lineTypeId: string;
+  lineTypeId: LineType;
   lineTypeName: string;
   /** Destination text */
   towards: string;
   footNotes: IFootNote[];
   realTime: IRealTime[];
   trainNo: string;
-  deviations?: IDeviation[];
+  deviations: IDeviation[];
   runNo: string;
 }
 
@@ -48,7 +52,21 @@ export interface IDeviation {
   header: string;
   details: string;
   summary: string;
-  shortNext: string;
+  shortText: string;
 }
 
 export type RealTimeAffect = "CRITICAL" | "NON_CRITICAL" | "PASSED" | "NONE";
+
+export enum LineType {
+  RegionalBus = "1",
+  SkaneExpress = "2",
+  CityBus = "4",
+  KTrain = "8",
+  PTrainExpress = "16",
+  PTrain = "32",
+  TrainBus = "64",
+  OresundTrain = "128",
+  AirportBus = "256",
+  Ferry = "512",
+  Commute = "1024"
+}

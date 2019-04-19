@@ -2,7 +2,7 @@ import * as express from "express";
 import * as React from "react";
 import { renderToString } from "react-dom/server";
 import { html } from "../ui/html";
-import { DeparturesView } from "../ui/DeparturesView";
+import { DepartureArrivalView } from "../ui/DepartureArrivalView";
 import { SkanetrafikenApi } from "../services/skanetrafiken/SkanetrafikenApi";
 
 const port = 8080;
@@ -14,8 +14,9 @@ const api = new SkanetrafikenApi();
 
 server.get("/", async (req, res) => {
   const response = await api.getDepartureArrival();
-
-  const body = renderToString(React.createElement(DeparturesView));
+  const body = renderToString(
+    React.createElement(DepartureArrivalView, { lines: response.lines.line })
+  );
 
   res.send(
     html({
