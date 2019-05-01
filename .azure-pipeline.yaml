@@ -21,14 +21,6 @@ steps:
     verbose: false
     customCommand: ci
   timeoutInMinutes: 5
-
-- task: Npm@1
-  displayName: 'npm test'
-  inputs:
-    command: custom
-    verbose: false
-    customCommand: test
-  timeoutInMinutes: 5
   
 - task: Npm@1
   displayName: 'npm build'
