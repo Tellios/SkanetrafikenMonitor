@@ -2,15 +2,22 @@ import * as express from "express";
 import * as React from "react";
 import { renderToString } from "react-dom/server";
 import { html } from "../ui/html";
-import { DepartureArrivalView } from "../ui/DepartureArrivalView";
+import { DepartureArrivalView } from "../ui/departureArrival/DepartureArrival.view";
 import { SkanetrafikenApi } from "../services/skanetrafiken/SkanetrafikenApi";
+import * as path from "path";
 
 const port = 8080;
 const server = express();
 
 const api = new SkanetrafikenApi();
 
-// server.use(express.static("dist"));
+const assetsDir = path.join(__dirname, "assets");
+server.use(
+  "/assets",
+  express.static(assetsDir, {
+    cacheControl: process.env.NODE_ENV === "production"
+  })
+);
 
 server.get("/", async (req, res) => {
   const response = await api.getDepartureArrival();

@@ -75,9 +75,19 @@ export class SkanetrafikenApi {
     result.lines.line = this.coerceToArray(result.lines.line);
     const lines = result.lines.line;
 
+    /**
+     * Since XML has no real good information (like e.g JSON) of what is
+     * an array or not unless you can properly use an .xsd when parsing
+     * we make sure that the properties adhere to what is expected.
+     */
     if (lines.length > 0) {
       lines.forEach(line => {
-        line.deviations = this.coerceToArray(line.deviations);
+        if (line.deviations !== undefined) {
+          line.deviations.deviation = this.coerceToArray(
+            line.deviations.deviation
+          );
+        }
+        
         line.footNotes = this.coerceToArray(line.footNotes);
         line.realTime = this.coerceToArray(line.realTime);
       });

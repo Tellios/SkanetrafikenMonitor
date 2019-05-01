@@ -27,7 +27,7 @@ export interface ILineInfo {
   footNotes: IFootNote[];
   realTime: IRealTime[];
   trainNo: string;
-  deviations: IDeviation[];
+  deviations?: IDeviation;
   runNo: string;
 }
 
@@ -45,12 +45,16 @@ export interface IRealTimeInfo {
   newDepPoint?: string;
   depTimeDeviation?: string;
   depDeviationAffect: RealTimeAffect;
+  canceled?: boolean;
 }
 
 export interface IDeviation {
+  deviation: IDeviationInfo[];
+}
+
+export interface IDeviationInfo {
   publicNote: string;
   header: string;
-  details: string;
   summary: string;
   shortText: string;
 }

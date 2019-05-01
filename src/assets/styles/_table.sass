@@ -1,0 +1,29 @@
+@import colors
+
+table
+    width: 100%
+    
+th
+    padding: 0.4em
+    padding-right: 1em
+    text-align: left
+    font-size: 1.2em
+
+tr
+    padding-top: 0.4em
+    padding-bottom: 0.4em
+
+tbody > tr:nth-of-type(even)
+    background-color: $even-row-background
+    border-top: 1px solid $even-row-border
+    border-bottom: 1px solid $even-row-border
+    
+td
+    padding: 0.4em
+    text-align: left
+
+.destination-cell
+    min-width: 16em
+
+.comment-cell
+    width: 100%
