@@ -6,6 +6,7 @@ import { DepartureArrivalView } from "../ui/departureArrival/DepartureArrival.vi
 import { SkanetrafikenApi } from "../services/skanetrafiken/SkanetrafikenApi";
 import * as path from "path";
 import { SearchStartEndPointView } from "../ui/searchStartEndPointForm/SearchStartEndPoint.view";
+import { transportationValidator } from "./validators";
 
 const port = 8080;
 const server = express();
@@ -34,12 +35,25 @@ server.get("/", async (req, res) => {
 
 server.get("/departureArrivals/:stopId", async (req, res) => {
   const stopId = req.params.stopId || "";
+  const transportation: string = req.query.transportation || "trains,busses";
 
   if (typeof stopId !== "string" || stopId.length === 0) {
     return res.status(400).send("Invalid stop id parameter");
   }
 
-  const response = await api.getDepartureArrival(stopId);
+  const transportations = transportationValidator.validate(
+    transportation.split(",")
+  );
+
+  if (transportations.error !== null) {
+    return res
+      .status(400)
+      .send(
+        `Invalid transportation parameter: ${transportations.error.message}`
+      );
+  }
+
+  const response = await api.getDepartureArrival(stopId, transportations.value);
   const body = renderToString(
     React.createElement(DepartureArrivalView, { lines: response.lines.line })
   );

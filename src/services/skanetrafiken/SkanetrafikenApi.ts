@@ -1,9 +1,12 @@
 import { parseString, processors } from "xml2js";
 import * as http from "http";
+import { trainTypes } from "../../utils/trainTypes";
+import { busTypes } from "../../utils/busTypes";
 
 export class SkanetrafikenApi {
   public getDepartureArrival(
-    stopId: string
+    stopId: string,
+    transportations: string[]
   ): Promise<Skanetrafiken.IDepartureArrivalResult> {
     return new Promise((resolve, reject) => {
       const request = http.get(
@@ -31,6 +34,15 @@ export class SkanetrafikenApi {
                   .getDepartureArrivalResult;
 
               this.setDefaultsForDataInDepartureArrivalResponse(result);
+
+              result.lines.line = result.lines.line.filter(line => {
+                return (
+                  (transportations.includes("trains") &&
+                    trainTypes.includes(line.lineTypeId)) ||
+                  (transportations.includes("busses") &&
+                    busTypes.includes(line.lineTypeId))
+                );
+              });
 
               resolve(result);
             });

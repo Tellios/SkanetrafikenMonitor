@@ -2,7 +2,7 @@ import * as moment from "moment";
 import { hasDepartedOrArrived } from "./hasDepartedOrArrived";
 import { IconType } from "../../components/utils/IconType";
 import { Color } from "../../components/utils/Color";
-import { trainTypes } from "./trainTypes";
+import { trainTypes } from "../../../utils/trainTypes";
 
 export interface IDepartureArrivalOutput {
   hasDeparted: boolean;

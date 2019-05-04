@@ -18,6 +18,20 @@ export const SearchStartEndPointView: React.FunctionComponent<
           Välj hållplats <select id="stopSelect" />
         </label>
 
+        <fieldset>
+          <legend>Transportsätt</legend>
+
+          <label>
+            Tåg{" "}
+            <input id="includeTrainsCheckbox" type="checkbox" defaultChecked />
+          </label>
+
+          <label>
+            Buss{" "}
+            <input id="includeBussesCheckbox" type="checkbox" defaultChecked />
+          </label>
+        </fieldset>
+
         <button id="viewButton">Visa resultat</button>
       </fieldset>
     </form>

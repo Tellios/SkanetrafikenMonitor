@@ -88,7 +88,7 @@ declare namespace Skanetrafiken {
 
   export type RealTimeAffect = "CRITICAL" | "NON_CRITICAL" | "PASSED" | "NONE";
 
-  export enum LineType {
+  export const enum LineType {
     RegionalBus = "1",
     SkaneExpress = "2",
     CityBus = "4",
