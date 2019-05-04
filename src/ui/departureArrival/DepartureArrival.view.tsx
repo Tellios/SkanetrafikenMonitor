@@ -1,9 +1,8 @@
 import * as React from "react";
-import { ILineInfo } from "../../services/skanetrafiken/IDepartureArrivalResponse";
-import { Line } from "./Line.component";
+import { DepartureArrival } from "./DepartureArrival.component";
 
 export interface IDepartureArrivalViewProps {
-  lines: ILineInfo[];
+  lines: Skanetrafiken.ILineInfo[];
 }
 
 export const DepartureArrivalView: React.FunctionComponent<
@@ -18,12 +17,13 @@ export const DepartureArrivalView: React.FunctionComponent<
           <th>Mot</th>
           <th>Läge</th>
           <th>Tid</th>
+          <th></th> {/* status icon */}
           <th>Kommentar</th>
         </tr>
       </thead>
       <tbody>
         {lines.map((line, index) => (
-          <Line key={index} line={line} />
+          <DepartureArrival key={index} line={line} />
         ))}
       </tbody>
     </table>

@@ -5,10 +5,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "module": "commonjs",
-    "lib": ["es2018"],
-    "pretty": true,
-    "outDir": "dist"
+    "lib": ["es2018", "dom"]
   },
   "include": ["src"]
 }

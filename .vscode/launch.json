@@ -11,7 +11,10 @@
             "program": "${workspaceFolder}/dist/server/main.js",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
-            ]
+            ],
+            "env": {
+                "DEBUG": "express:*"
+            }
         }
     ]
 }

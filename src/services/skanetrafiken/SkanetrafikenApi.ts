@@ -1,15 +1,13 @@
 import { parseString, processors } from "xml2js";
 import * as http from "http";
-import {
-  IDepartureArrivalResponse,
-  IDepartureArrivalResult
-} from "./IDepartureArrivalResponse";
 
 export class SkanetrafikenApi {
-  public getDepartureArrival(): Promise<IDepartureArrivalResult> {
+  public getDepartureArrival(
+    stopId: string
+  ): Promise<Skanetrafiken.IDepartureArrivalResult> {
     return new Promise((resolve, reject) => {
       const request = http.get(
-        "http://www.labs.skanetrafiken.se/v2.2/stationresults.asp?selPointFrKey=80000",
+        `http://www.labs.skanetrafiken.se/v2.2/stationresults.asp?selPointFrKey=${stopId}`,
         res => {
           if (res.statusCode !== 200) {
             reject(
@@ -28,11 +26,53 @@ export class SkanetrafikenApi {
 
           res.on("end", () => {
             this.parseXmlResponse(rawData).then((parsedXml: any) => {
-              const result: IDepartureArrivalResult =
+              const result: Skanetrafiken.IDepartureArrivalResult =
                 parsedXml.envelope.body.getDepartureArrivalResponse
                   .getDepartureArrivalResult;
 
-              this.setDefaultsForUndefinedData(result);
+              this.setDefaultsForDataInDepartureArrivalResponse(result);
+
+              resolve(result);
+            });
+          });
+        }
+      );
+
+      request.end();
+    });
+  }
+
+  public getStartEndPoint(
+    searchQuery: string
+  ): Promise<Skanetrafiken.IGetStartEndPointResponse> {
+    return new Promise((resolve, reject) => {
+      const request = http.get(
+        `http://www.labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=${encodeURIComponent(
+          searchQuery
+        )}`,
+        res => {
+          if (res.statusCode !== 200) {
+            reject(
+              Error(
+                `Failed to invoke querystation endpoint, code: ${
+                  res.statusCode
+                }, message: ${res.statusMessage}`
+              )
+            );
+          }
+
+          let rawData = "";
+          res.on("data", (chunk: string) => {
+            rawData += chunk;
+          });
+
+          res.on("end", () => {
+            this.parseXmlResponse(rawData).then((parsedXml: any) => {
+              const result: Skanetrafiken.IGetStartEndPointResponse =
+                parsedXml.envelope.body.getStartEndPointResponse
+                  .getStartEndPointResult;
+
+              this.setDefaultsForDataInGetStartEndPointResponse(result);
 
               resolve(result);
             });
@@ -67,7 +107,9 @@ export class SkanetrafikenApi {
     });
   }
 
-  private setDefaultsForUndefinedData(result: IDepartureArrivalResult) {
+  private setDefaultsForDataInDepartureArrivalResponse(
+    result: Skanetrafiken.IDepartureArrivalResult
+  ) {
     /**
      * To simplify the code using the result we set defaults here for some
      * properties that will be undefined if not set in the XML.
@@ -87,11 +129,18 @@ export class SkanetrafikenApi {
             line.deviations.deviation
           );
         }
-        
+
         line.footNotes = this.coerceToArray(line.footNotes);
         line.realTime = this.coerceToArray(line.realTime);
       });
     }
+  }
+
+  private setDefaultsForDataInGetStartEndPointResponse(
+    result: Skanetrafiken.IGetStartEndPointResponse
+  ) {
+    result.startPoints.point = this.coerceToArray(result.startPoints.point);
+    result.endPoints.point = this.coerceToArray(result.endPoints.point);
   }
 
   private coerceToArray<T>(value?: T | Array<T>): Array<T> {

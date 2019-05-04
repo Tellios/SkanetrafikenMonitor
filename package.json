@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cleanDist": "rimraf dist",
-    "build": "npm run cleanDist && sass src/assets/styles/base.sass:dist/server/assets/styles.css && tsc",
-    "build:watch": "npm run cleanDist && concurrently -k \"sass --watch src/assets/styles/base.sass:dist/server/assets/styles.css\" \"tsc --watch\"",
+    "build": "npm run cleanDist && echo 'Building css' && sass src/assets/styles/base.sass:dist/assets/styles.css && echo 'Building server scripts' && tsc -p tsconfig.server.json && echo 'Building client scripts' && tsc -p tsconfig.scripts.json",
+    "build:watch": "npm run cleanDist && concurrently -k \"sass --watch src/assets/styles/base.sass:dist/assets/styles.css\" \"tsc --watch -p tsconfig.server.json\" \"tsc --watch -p tsconfig.scripts.json\"",
     "start": "node dist/server/main.js"
   },
   "keywords": [],
