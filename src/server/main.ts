@@ -5,7 +5,7 @@ import { html } from "../ui/html";
 import { DepartureArrivalView } from "../ui/departureArrival/DepartureArrival.view";
 import { SkanetrafikenApi } from "../services/skanetrafiken/SkanetrafikenApi";
 import * as path from "path";
-import { SearchStartEndPointView } from "../ui/searchStartEndPointForm/SearchStartEndPoint.view";
+import { SetupFilterView } from "../ui/setupFIlter/SetupFilter.view";
 import { transportationValidator } from "./validators";
 
 const port = 8080;
@@ -23,12 +23,12 @@ server.use(
 );
 
 server.get("/", async (req, res) => {
-  const body = renderToString(React.createElement(SearchStartEndPointView, {}));
+  const body = renderToString(React.createElement(SetupFilterView, {}));
 
   res.send(
     html({
       body,
-      head: `<script src="/assets/scripts/SearchStartEndPointView.js" type="module"></script>`
+      scripts: ["/assets/scripts/SearchStartEndPointView.js"]
     })
   );
 });
@@ -60,7 +60,8 @@ server.get("/departureArrivals/:stopId", async (req, res) => {
 
   res.send(
     html({
-      body
+      body,
+      scripts: ["/assets/scripts/DepartureArrivalView.js"]
     })
   );
 });

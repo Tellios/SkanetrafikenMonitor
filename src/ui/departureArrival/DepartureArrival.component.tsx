@@ -12,9 +12,10 @@ export const DepartureArrival: React.FunctionComponent<ILineProps> = ({
 }) => {
   const output = getDepartureArrivalOutput(line);
 
-  const comments = output.comments.map(comment => {
+  const comments = output.comments.map((comment, index) => {
     return (
       <InfoPanel
+        key={index}
         alert={output.isCancelled}
         header={comment.header}
         message={comment.message}

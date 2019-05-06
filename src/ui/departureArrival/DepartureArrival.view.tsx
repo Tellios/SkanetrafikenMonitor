@@ -17,8 +17,11 @@ export const DepartureArrivalView: React.FunctionComponent<
           <th>Mot</th>
           <th>Läge</th>
           <th>Tid</th>
-          <th></th> {/* status icon */}
-          <th>Kommentar</th>
+          <th /> {/* status icon */}
+          <th className="commentsHeader">
+            <span>Kommentarer</span>
+            <span id="lastUpdatedText" />
+          </th>
         </tr>
       </thead>
       <tbody>

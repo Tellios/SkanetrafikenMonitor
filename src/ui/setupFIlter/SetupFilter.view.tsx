@@ -2,7 +2,7 @@ import * as React from "react";
 
 export interface ISearchStartEndPointProps {}
 
-export const SearchStartEndPointView: React.FunctionComponent<
+export const SetupFilterView: React.FunctionComponent<
   ISearchStartEndPointProps
 > = () => {
   return (
@@ -11,7 +11,7 @@ export const SearchStartEndPointView: React.FunctionComponent<
         <legend>Sätt upp filter</legend>
 
         <label>
-          Sök hållplats <input id="stopInput" type="text" />
+          Sök hållplats <input id="stopInput" type="text" autoComplete="off" />
         </label>
 
         <label>
