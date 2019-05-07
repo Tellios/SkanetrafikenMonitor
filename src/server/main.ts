@@ -28,7 +28,7 @@ server.get("/", async (req, res) => {
   res.send(
     html({
       body,
-      scripts: ["/assets/scripts/SearchStartEndPointView.js"]
+      scripts: ["/assets/scripts/SetupFilterView.js"]
     })
   );
 });
