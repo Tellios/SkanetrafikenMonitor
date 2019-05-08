@@ -17,7 +17,7 @@ const assetsDir = path.resolve(__dirname, "../", "assets");
 server.use(
   "/assets",
   express.static(assetsDir, {
-    cacheControl: process.env.NODE_ENV === "production",
+    cacheControl: false,
     extensions: ["html", "js", "css"]
   })
 );

@@ -8,6 +8,6 @@ lastUpdatedText.textContent = `Uppdaterat ${
 
 const minute = 1000 * 60;
 
-setTimeout(() => {
-  location.reload();
+setInterval(() => {
+  location.reload(true);
 }, minute * 2);
