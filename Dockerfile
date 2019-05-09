@@ -12,7 +12,8 @@ COPY tsconfig.server.json tsconfig.server.json
 
 RUN npm ci \
   && npm run build \
-  && rm -rf src
+  && rm -rf src \
+  && npm ci --production
 
 ENV NODE_ENV=production
 
