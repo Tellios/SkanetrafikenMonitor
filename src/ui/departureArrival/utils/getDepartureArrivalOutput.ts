@@ -63,7 +63,21 @@ export function getDepartureArrivalOutput(
     });
   }
 
-  const icon: IconType = trainTypes.includes(line.lineTypeId) ? "train" : "bus";
+  if (line.footNotes) {
+    line.footNotes.forEach(footNote => {
+      comments.push({
+        header: "Information",
+        message: footNote.footNote.text
+      });
+    });
+  }
+
+  const icon: IconType =
+    line.lineTypeId === Skanetrafiken.LineType.TrainBus
+      ? "bus"
+      : trainTypes.includes(line.lineTypeId)
+      ? "train"
+      : "bus";
 
   const iconColor: Color =
     line.lineTypeId === Skanetrafiken.LineType.CityBus
@@ -82,6 +96,8 @@ export function getDepartureArrivalOutput(
       ? "purple"
       : line.lineTypeId === Skanetrafiken.LineType.KTrain
       ? "purple"
+      : line.lineTypeId === Skanetrafiken.LineType.TrainBus
+      ? "yellow"
       : "red";
 
   return {

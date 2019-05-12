@@ -59,6 +59,10 @@ declare namespace Skanetrafiken {
   }
 
   export interface IFootNote {
+    footNote: IFootNoteInfo;
+  }
+
+  export interface IFootNoteInfo {
     /** Foot note's index, always unique in scope of journey */
     index: string;
     text: string;
