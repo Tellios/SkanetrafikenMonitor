@@ -2,10 +2,11 @@ import * as React from "react";
 import * as classNames from "classnames";
 import { resolveColorClass } from "./utils/resolveColorClass";
 import { Color } from "./utils/Color";
+import { IconType } from "./utils/IconType";
 
 export interface IIconProps {
   color?: Color;
-  icon: "alert-circle" | "bus" | "train";
+  icon: IconType;
 }
 
 export const Icon: React.FunctionComponent<IIconProps> = ({
