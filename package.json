@@ -23,7 +23,7 @@
     "@types/xml2js": "^0.4.4",
     "concurrently": "^4.1.0",
     "rimraf": "^2.6.3",
-    "sass": "^1.19.0",
+    "sass": "^1.22.10",
     "typescript": "^3.4.3"
   },
   "dependencies": {
